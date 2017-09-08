@@ -1,0 +1,67 @@
+---
+title: "runpkg"
+output: 
+  html_document:
+    keep_md: true
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  comment = "#>",
+  collapse = TRUE
+)
+```
+
+An R package for working with [unpkg](https://unpkg.com) -- content delivery network (CDN) for everything on [npm](https://www.npmjs.com/). The goal is to make it easy to find, download, and manage *any file* from any *npm package* in R by storing them as `htmltools::htmlDependency()` objects.
+
+## Installation
+
+**runpkg** is not available on CRAN, but you may install with:
+
+```r
+devtools::install_github('cpsievert/runpkg')
+```
+
+## Overview
+
+Many npm packages distribute a ['main' file](https://docs.npmjs.com/files/package.json#main) which provides the 'primary entry point to the program'. The `download_main()` function downloads that file and returns a [`htmltools::htmlDependency()`](https://www.rdocumentation.org/packages/htmltools/versions/0.3.6/topics/htmlDependency) object, which makes it easy to incorporate these dependencies in other R projects that leverage **htmltools** (e.g., **shiny** and **htmlwidgets**).
+
+```{r}
+library(runpkg)
+(jq_main <- download_main("jquery"))
+
+library(htmltools)
+cat(renderDependencies(list(jq_main), "href"))
+cat(renderDependencies(list(jq_main), "file"))
+```
+
+Sometimes you want/need additional files from a package, especially if that package distributes optional dependencies. In this case, you may want to see what other files are distributed with the package via the `ls_()` function:
+
+```{r}
+ls_("jquery")
+ls_("jquery", "dist")
+ls_("jquery@3.2.1", "external/sizzle")
+```
+
+Once you've targetted your file(s) of interest, use `download_files()` to acquire those files
+
+```{r}
+files <- c(
+  "dist/jquery.slim.min.js",
+  "external/sizzle/dist/sizzle.min.js"
+)
+jq_full <- download_files("jquery", files)
+cat(renderDependencies(list(jq_full), "file"))
+```
+
+## Storing local files
+
+If you need to store your dependencies in a special location, provide a relevant path to the "runpkg.path" option:
+
+```{r}
+options(runpkg.path = system.file(package = "runpkg"))
+(jq_main <- download_main("jquery"))
+cat(renderDependencies(list(jq_main), "file"))
+```

@@ -1,9 +1,15 @@
 Package: runpkg
-Title: What the Package Does (one line, title case)
+Title: Tools for working with 'UNPKG'
 Version: 0.0.0.9000
-Authors@R: Carson Sievert <cpsievert1@gmail.com> [aut, cre]
-Description: What the package does (one paragraph).
-Depends: R (>= 3.4.1)
-License: file LICENSE
+Authors@R: c(person("Carson", "Sievert", role = c("aut", "cre"), email = "cpsievert1@gmail.com"))
+Description: 'UNPKG' provides a content delivery network for everything on npm. This interface makes it easy to find, download, and manage any file from any npm package via html dependencies from htmltools.
+Imports:
+  tibble,
+  rvest,
+  xml2,
+  httr,
+  htmltools
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
