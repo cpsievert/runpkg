@@ -28,7 +28,7 @@ dependify <- function(files = NULL, name = NULL, version = NULL) {
   href_root <- sprintf("https://unpkg.com/%s@%s", name, version)
   hrefs <- file.path(href_root, files)
   file_root <- file.path(runpkg_path(), paste0(name, "@", version))
-  files_full <- file.path(runpkg_path(), file_root)
+  files_full <- file.path(file_root, files)
 
   ## TODO: support more content types?
   #types <- vapply(hrefs, content_type, character(1))

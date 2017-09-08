@@ -17,7 +17,7 @@
 #' htmltools::renderDependencies(list(fa), "file")
 #'
 #'
-#' (jquery <- download_files("jquery@3.0.0", "dist", "jquery.slim.min.js"))
+#' (jquery <- download_files("jquery@3.0.0", "dist/jquery.slim.min.js"))
 #'
 download_main <- function(pkg) {
   # TODO: the main file always has to be one file, right?

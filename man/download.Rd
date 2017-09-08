@@ -28,7 +28,7 @@ htmltools::renderDependencies(list(fa), "href")
 htmltools::renderDependencies(list(fa), "file")
 
 
-(jquery <- download_files("jquery@3.0.0", "dist", "jquery.slim.min.js"))
+(jquery <- download_files("jquery@3.0.0", "dist/jquery.slim.min.js"))
 
 }
 \references{
