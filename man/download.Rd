@@ -3,7 +3,7 @@
 \name{download_main}
 \alias{download_main}
 \alias{download_files}
-\title{Download the 'main' file from a package}
+\title{Download files from npm packages via unpkg}
 \usage{
 download_main(pkg)
 
@@ -12,17 +12,14 @@ download_files(pkg, files = NULL)
 \arguments{
 \item{pkg}{the name (and optionally the version) of an npm package. (e.g. 'jquery', 'jquery@3.0.0')}
 
-\item{files}{character vector of paths to files (these paths should be relative to .}
+\item{files}{character vector of paths to files. These are used as the \code{:file}
+part of \url{https://unpkg.com/:package@:version/:file}}
 }
 \value{
 a \link[htmltools:htmlDependency]{htmltools::htmlDependency} object
-
-a \link[htmltools:htmlDependency]{htmltools::htmlDependency} object
 }
 \description{
-Download the 'main' file from a package
-
-Download npm package files and convert them to HTML dependencies
+Download files from npm packages via unpkg
 }
 \examples{
 
@@ -35,5 +32,5 @@ htmltools::renderDependencies(list(fa), "file")
 
 }
 \references{
-\url{https://unpkg.com/#/}
+\url{https://unpkg.com}
 }

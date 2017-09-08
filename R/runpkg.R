@@ -1,8 +1,11 @@
-#' Download the 'main' file from a package
+#' Download files from npm packages via unpkg
 #'
 #' @param pkg the name (and optionally the version) of an npm package. (e.g. 'jquery', 'jquery@3.0.0')
+#' @param files character vector of paths to files. These are used as the `:file`
+#' part of <https://unpkg.com/:package@:version/:file>
 #'
 #' @return a [htmltools::htmlDependency] object
+#' @references <https://unpkg.com>
 #'
 #' @rdname download
 #' @export
@@ -13,31 +16,18 @@
 #' htmltools::renderDependencies(list(fa), "href")
 #' htmltools::renderDependencies(list(fa), "file")
 #'
-
-download_main <- function(pkg) {
-  # TODO: the main file always has to be one file, right?
-  info <- resolve_pkg(pkg)
-  res <- httr::GET(info$url)
-  file <- sub("https://unpkg.com/[^/]*/", "", res$url)
-  dependify(file, info$name, info$version)
-}
-
-
-#' Download npm package files and convert them to HTML dependencies
-#'
-#' @inheritParams download_main
-#' @param files character vector of paths to files (these paths should be relative to .
-#'
-#' @return a [htmltools::htmlDependency] object
-#' @references <https://unpkg.com/#/>
-#'
-#' @rdname download
-#' @export
-#' @md
-#' @examples
 #'
 #' (jquery <- download_files("jquery@3.0.0", "dist", "jquery.slim.min.js"))
 #'
+download_main <- function(pkg) {
+  # TODO: the main file always has to be one file, right?
+  info <- resolve_pkg(pkg)
+  dependify(info$main, info$name, info$version)
+}
+
+#' @rdname download
+#' @export
+#' @md
 download_files <- function(pkg, files = NULL) {
   # return the main file (defined in pkg config) if no path is specified
   if (is.null(files)) return(download_main(pkg))
@@ -47,14 +37,14 @@ download_files <- function(pkg, files = NULL) {
 }
 
 
-
 #' List package files
 #'
 #' @inheritParams download_main
-#' @param path a path to a folder.
+#' @param path character string with a path pointing to a package folder. This
+#' is used as the `:file` part of `https://unpkg.com/:package@:version/:file`
 #'
 #' @return a [htmltools::htmlDependency] object
-#' @references <https://unpkg.com/#/>
+#' @seealso [download_files]
 #'
 #' @export
 #' @md
@@ -72,4 +62,3 @@ ls_ <- function(pkg, path = "/") {
   href <- file.path(home$url, path)
   rvest::html_table(xml2::read_html(href))[[1]]
 }
-

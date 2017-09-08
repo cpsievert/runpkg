@@ -9,7 +9,8 @@ ls_(pkg, path = "/")
 \arguments{
 \item{pkg}{the name (and optionally the version) of an npm package. (e.g. 'jquery', 'jquery@3.0.0')}
 
-\item{path}{a path to a folder.}
+\item{path}{character string with a path pointing to a package folder. This
+is used as the \code{:file} part of \code{https://unpkg.com/:package@:version/:file}}
 }
 \value{
 a \link[htmltools:htmlDependency]{htmltools::htmlDependency} object
@@ -24,6 +25,6 @@ ls_("jquery", "dist")
 ls_("jquery@3.2.1", "external/sizzle")
 
 }
-\references{
-\url{https://unpkg.com/#/}
+\seealso{
+\link{download_files}
 }

@@ -16,7 +16,8 @@ resolve_pkg <- function(pkg) {
   list(
     url = base_url,
     name = sub("https://unpkg.com/", "", pieces[[1]]),
-    version = pieces[[2]]
+    version = pieces[[2]],
+    main = sub("https://unpkg.com/[^/]*/", "", res$url)
   )
 }
 
