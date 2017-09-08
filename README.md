@@ -26,7 +26,7 @@ library(runpkg)
 #>  $ version   : chr "3.2.1"
 #>  $ src       :List of 2
 #>   ..$ href: chr "https://unpkg.com/jquery@3.2.1"
-#>   ..$ file: chr "/Users/cpsievert/.runkpg_cache"
+#>   ..$ file: chr "/Users/cpsievert/.runkpg_cache/jquery@3.2.1"
 #>  $ meta      : NULL
 #>  $ script    : chr "dist/jquery.js"
 #>  $ stylesheet: NULL
@@ -40,7 +40,7 @@ library(htmltools)
 cat(renderDependencies(list(jq_main), "href"))
 #> <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.js"></script>
 cat(renderDependencies(list(jq_main), "file"))
-#> <script src="/Users/cpsievert/.runkpg_cache/dist/jquery.js"></script>
+#> <script src="/Users/cpsievert/.runkpg_cache/jquery%403.2.1/dist/jquery.js"></script>
 ```
 
 Sometimes you want/need additional files from a package, especially if that package distributes optional dependencies. In this case, you may want to see what other files are distributed with the package via the `ls_()` function:
@@ -93,8 +93,8 @@ files <- c(
 )
 jq_full <- download_files("jquery", files)
 cat(renderDependencies(list(jq_full), "file"))
-#> <script src="/Users/cpsievert/.runkpg_cache/dist/jquery.slim.min.js"></script>
-#> <script src="/Users/cpsievert/.runkpg_cache/external/sizzle/dist/sizzle.min.js"></script>
+#> <script src="/Users/cpsievert/.runkpg_cache/jquery%403.2.1/dist/jquery.slim.min.js"></script>
+#> <script src="/Users/cpsievert/.runkpg_cache/jquery%403.2.1/external/sizzle/dist/sizzle.min.js"></script>
 ```
 
 ## Storing local files
@@ -110,7 +110,7 @@ options(runpkg.path = system.file(package = "runpkg"))
 #>  $ version   : chr "3.2.1"
 #>  $ src       :List of 2
 #>   ..$ href: chr "https://unpkg.com/jquery@3.2.1"
-#>   ..$ file: chr "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/runpkg"
+#>   ..$ file: chr "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/runpkg/jquery@3.2.1"
 #>  $ meta      : NULL
 #>  $ script    : chr "dist/jquery.js"
 #>  $ stylesheet: NULL
@@ -120,5 +120,5 @@ options(runpkg.path = system.file(package = "runpkg"))
 #>  $ all_files : logi TRUE
 #>  - attr(*, "class")= chr "html_dependency"
 cat(renderDependencies(list(jq_main), "file"))
-#> <script src="/Library/Frameworks/R.framework/Versions/3.4/Resources/library/runpkg/dist/jquery.js"></script>
+#> <script src="/Library/Frameworks/R.framework/Versions/3.4/Resources/library/runpkg/jquery%403.2.1/dist/jquery.js"></script>
 ```
