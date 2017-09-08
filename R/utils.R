@@ -25,9 +25,10 @@ resolve_pkg <- function(pkg) {
 dependify <- function(files = NULL, name = NULL, version = NULL) {
   if (!length(files)) stop("files must be provided", call. = FALSE)
 
-  base_url <- sprintf("https://unpkg.com/%s@%s", name, version)
-  hrefs <- file.path(base_url, files)
-  files_full <- file.path(runpkg_path(), files)
+  href_root <- sprintf("https://unpkg.com/%s@%s", name, version)
+  hrefs <- file.path(href_root, files)
+  file_root <- file.path(runpkg_path(), paste0(name, "@", version))
+  files_full <- file.path(runpkg_path(), file_root)
 
   ## TODO: support more content types?
   #types <- vapply(hrefs, content_type, character(1))
@@ -53,7 +54,7 @@ dependify <- function(files = NULL, name = NULL, version = NULL) {
   htmltools::htmlDependency(
     name = name,
     version = version,
-    src = c(href = base_url, file = runpkg_path()),
+    src = c(href = href_root, file = file_root),
     # TODO: how to determine attachments?
     script = files[!is_style] %||% NULL,
     stylesheet = files[is_style] %||% NULL
