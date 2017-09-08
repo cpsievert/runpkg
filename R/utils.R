@@ -11,7 +11,7 @@ resolve_pkg <- function(pkg) {
     stop(con, call = FALSE)
   }
   httr::warn_for_status(res)
-  base_url <- sub("/$", "", strextract(res$url, "https://unpkg.com/[^/]*/"))
+  base_url <- sub("/$", "", strextract(res$url, "https://unpkg.com/[^/]*[/]?"))
   pieces <- strsplit(base_url, "@")[[1]]
   list(
     url = base_url,
@@ -60,6 +60,7 @@ dependify <- function(files = NULL, name = NULL, version = NULL) {
 }
 
 runpkg_path <- function() {
+  # TODO: why is this set to knitr false by knitr???
   #if (!capabilities("cledit")) {
   #  stop(
   #    "Can't automatically determine a directory to download files on your machine. ",
