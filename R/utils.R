@@ -57,7 +57,8 @@ dependify <- function(files = NULL, name = NULL, version = NULL) {
     src = c(href = href_root, file = file_root),
     # TODO: how to determine attachments?
     script = files[!is_style] %||% NULL,
-    stylesheet = files[is_style] %||% NULL
+    stylesheet = files[is_style] %||% NULL,
+    all_files = FALSE
   )
 }
 
