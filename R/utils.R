@@ -48,7 +48,7 @@ dependify <- function(files = NULL, name = NULL, version = NULL) {
 
   # TODO: it's almost surely wrong to assume most everything is a script
   types <- vapply(hrefs, content_type, character(1))
-  is_style <- types %in% "text/css"
+  is_style <- grepl("text/css", types, fixed = TRUE)
 
   # htmlDependify
   htmltools::htmlDependency(
